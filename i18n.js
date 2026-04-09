@@ -1,0 +1,105 @@
+const I18N = {
+  en: {
+    title: "InstaTimestamp",
+    subtitle: "Display exact posting times",
+    sectionLabel: "Timezone",
+    searchPlaceholder: "Search city or country...",
+    currentLabel: "Current time in selected zone",
+    save: "Save",
+    saved: "✓ Saved",
+    reset: "Reset to local time",
+    footer: "Reload Instagram tab after saving",
+    resultCount: n => `${n} result${n === 1 ? '' : 's'}`,
+    noResults: "No results found",
+    langLabel: "Language",
+  },
+  es: {
+    title: "InstaTimestamp",
+    subtitle: "Muestra la hora exacta de publicación",
+    sectionLabel: "Zona horaria",
+    searchPlaceholder: "Buscar ciudad o país...",
+    currentLabel: "Hora actual en la zona seleccionada",
+    save: "Guardar",
+    saved: "✓ Guardado",
+    reset: "Restablecer hora local",
+    footer: "Recarga la pestaña de Instagram al guardar",
+    resultCount: n => `${n} resultado${n === 1 ? '' : 's'}`,
+    noResults: "Sin resultados",
+    langLabel: "Idioma",
+  },
+  pt: {
+    title: "InstaTimestamp",
+    subtitle: "Exibe o horário exato das publicações",
+    sectionLabel: "Fuso horário",
+    searchPlaceholder: "Pesquisar cidade ou país...",
+    currentLabel: "Hora atual no fuso selecionado",
+    save: "Salvar",
+    saved: "✓ Salvo",
+    reset: "Redefinir para hora local",
+    footer: "Recarregue a aba do Instagram após salvar",
+    resultCount: n => `${n} resultado${n === 1 ? '' : 's'}`,
+    noResults: "Nenhum resultado",
+    langLabel: "Idioma",
+  },
+  ko: {
+    title: "InstaTimestamp",
+    subtitle: "포스팅 시간을 정확하게 표시",
+    sectionLabel: "시간대",
+    searchPlaceholder: "도시 또는 나라 이름 검색...",
+    currentLabel: "선택한 시간대의 현재 시각",
+    save: "저장",
+    saved: "✓ 저장됨",
+    reset: "PC 시간대로 초기화",
+    footer: "저장 후 인스타그램 탭을 새로고침 하세요",
+    resultCount: n => `${n}개 결과`,
+    noResults: "검색 결과가 없습니다",
+    langLabel: "언어",
+  },
+  ja: {
+    title: "InstaTimestamp",
+    subtitle: "投稿の正確な時刻を表示",
+    sectionLabel: "タイムゾーン",
+    searchPlaceholder: "都市または国名で検索...",
+    currentLabel: "選択したタイムゾーンの現在時刻",
+    save: "保存",
+    saved: "✓ 保存しました",
+    reset: "ローカル時刻にリセット",
+    footer: "保存後にInstagramタブを再読み込みしてください",
+    resultCount: n => `${n}件`,
+    noResults: "結果が見つかりません",
+    langLabel: "言語",
+  },
+  zh: {
+    title: "InstaTimestamp",
+    subtitle: "显示帖子的精确发布时间",
+    sectionLabel: "时区",
+    searchPlaceholder: "搜索城市或国家...",
+    currentLabel: "所选时区的当前时间",
+    save: "保存",
+    saved: "✓ 已保存",
+    reset: "重置为本地时间",
+    footer: "保存后请刷新 Instagram 标签页",
+    resultCount: n => `${n} 个结果`,
+    noResults: "未找到结果",
+    langLabel: "语言",
+  },
+};
+
+const LANG_OPTIONS = [
+  { code: "en", label: "EN  English" },
+  { code: "es", label: "ES  Español" },
+  { code: "pt", label: "PT  Português" },
+  { code: "ko", label: "KR  한국어" },
+  { code: "ja", label: "JP  日本語" },
+  { code: "zh", label: "CN  中文" },
+];
+
+function detectBrowserLang() {
+  const raw = (navigator.language || navigator.languages?.[0] || 'en').toLowerCase();
+  if (raw.startsWith('ko')) return 'ko';
+  if (raw.startsWith('ja')) return 'ja';
+  if (raw.startsWith('zh')) return 'zh';
+  if (raw.startsWith('es')) return 'es';
+  if (raw.startsWith('pt')) return 'pt';
+  return 'en';
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>InstaTimestamp</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+    }
+
+    .header {
+      padding: 14px 16px 11px;
+      border-bottom: 1px solid #efefef;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+
+    .header-text { flex: 1; }
+    .header-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .header-sub { font-size: 11px; color: #8e8e8e; margin-top: 1px; }
+
+    /* Language switcher */
+    .lang-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    #lang-select {
+      padding: 3px 20px 3px 6px;
+      border: 1px solid #dbdbdb;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      background: #fafafa;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      outline: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23aaa'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 6px center;
+    }
+    #lang-select:focus { border-color: #0095f6; }
+
+    .body { padding: 14px 16px 16px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 600; color: #8e8e8e;
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+
+    .search-wrap { position: relative; margin-bottom: 8px; }
+    .search-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      font-size: 13px; color: #aaa; pointer-events: none;
+    }
+
+    #search {
+      width: 100%; padding: 8px 10px 8px 30px;
+      border: 1px solid #dbdbdb; border-radius: 8px;
+      font-size: 13px; outline: none; color: #1a1a1a;
+      background: #fafafa; transition: border-color 0.15s;
+    }
+    #search:focus { border-color: #0095f6; background: #fff; }
+    #search::placeholder { color: #aaa; }
+
+    .dropdown-wrap { position: relative; }
+    #tz-select {
+      width: 100%; padding: 9px 32px 9px 12px;
+      border: 1px solid #dbdbdb; border-radius: 8px;
+      font-size: 13px; color: #1a1a1a; background: #fafafa;
+      appearance: none; -webkit-appearance: none;
+      cursor: pointer; outline: none; transition: border-color 0.15s;
+    }
+    #tz-select:focus { border-color: #0095f6; }
+    .dropdown-arrow {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; color: #aaa; font-size: 11px;
+    }
+
+    .result-count { font-size: 11px; color: #aaa; margin-top: 6px; text-align: right; }
+
+    .divider { height: 1px; background: #efefef; margin: 14px 0; }
+
+    .current-wrap {
+      background: #f0f7ff; border: 1px solid #c8e1ff;
+      border-radius: 8px; padding: 10px 12px;
+    }
+    .current-label {
+      font-size: 10px; font-weight: 600; color: #0969da;
+      text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px;
+    }
+    .current-time {
+      font-size: 13px; font-weight: 600; color: #0969da;
+      font-variant-numeric: tabular-nums;
+    }
+    .current-tz { font-size: 11px; color: #0969da; opacity: 0.7; margin-top: 2px; }
+
+    .btn-save {
+      width: 100%; margin-top: 12px; padding: 9px;
+      background: #0095f6; color: #fff; border: none;
+      border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn-save:hover { background: #0086e0; }
+    .btn-save:active { background: #0077c9; }
+    .btn-save.saved { background: #2ecc71; }
+
+    .footer {
+      padding: 10px 16px; border-top: 1px solid #efefef;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .footer-text { font-size: 11px; color: #aaa; }
+    .btn-reset {
+      font-size: 11px; color: #0095f6; background: none;
+      border: none; cursor: pointer; padding: 0; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-reset:hover { text-decoration: underline; }
+
+    option { font-size: 13px; color: #1a1a1a; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-icon">⏰</div>
+    <div class="header-text">
+      <div class="header-title" id="hdr-title">InstaTimestamp</div>
+      <div class="header-sub" id="hdr-sub"></div>
+    </div>
+    <div class="lang-wrap">
+      <select id="lang-select"></select>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="section-label" id="lbl-tz"></div>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="dropdown-wrap">
+      <select id="tz-select" size="1"></select>
+      <span class="dropdown-arrow">▾</span>
+    </div>
+    <div class="result-count" id="result-count"></div>
+
+    <div class="divider"></div>
+
+    <div class="current-wrap">
+      <div class="current-label" id="lbl-current"></div>
+      <div class="current-time" id="current-time">--</div>
+      <div class="current-tz" id="current-tz-name">--</div>
+    </div>
+
+    <button class="btn-save" id="btn-save"></button>
+  </div>
+
+  <div class="footer">
+    <span class="footer-text" id="lbl-footer"></span>
+    <button class="btn-reset" id="btn-reset"></button>
+  </div>
+
+  <script src="timezones.js"></script>
+  <script src="i18n.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
