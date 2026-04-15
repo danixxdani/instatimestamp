@@ -12,6 +12,9 @@ const I18N = {
     resultCount: n => `${n} result${n === 1 ? '' : 's'}`,
     noResults: "No results found",
     langLabel: "Language",
+    toggleLabel: "Show timestamps",
+    toggleSub: "Display exact time on posts",
+    buyMeCoffee: "☕ Buy me a coffee",
   },
   es: {
     title: "InstaTimestamp",
@@ -26,6 +29,9 @@ const I18N = {
     resultCount: n => `${n} resultado${n === 1 ? '' : 's'}`,
     noResults: "Sin resultados",
     langLabel: "Idioma",
+    toggleLabel: "Mostrar timestamps",
+    toggleSub: "Mostrar hora exacta en publicaciones",
+    buyMeCoffee: "☕ Invítame a un café",
   },
   pt: {
     title: "InstaTimestamp",
@@ -40,6 +46,9 @@ const I18N = {
     resultCount: n => `${n} resultado${n === 1 ? '' : 's'}`,
     noResults: "Nenhum resultado",
     langLabel: "Idioma",
+    toggleLabel: "Mostrar timestamps",
+    toggleSub: "Exibir hora exata nas publicações",
+    buyMeCoffee: "☕ Me paga um café",
   },
   ko: {
     title: "InstaTimestamp",
@@ -54,6 +63,9 @@ const I18N = {
     resultCount: n => `${n}개 결과`,
     noResults: "검색 결과가 없습니다",
     langLabel: "언어",
+    toggleLabel: "타임스탬프 표시",
+    toggleSub: "포스팅에 정확한 시간 표시",
+    buyMeCoffee: "☕ 커피로 응원하기",
   },
   ja: {
     title: "InstaTimestamp",
@@ -68,6 +80,9 @@ const I18N = {
     resultCount: n => `${n}件`,
     noResults: "結果が見つかりません",
     langLabel: "言語",
+    toggleLabel: "タイムスタンプを表示",
+    toggleSub: "投稿に正確な時刻を表示",
+    buyMeCoffee: "☕ コーヒーで応援する",
   },
   zh: {
     title: "InstaTimestamp",
@@ -82,6 +97,9 @@ const I18N = {
     resultCount: n => `${n} 个结果`,
     noResults: "未找到结果",
     langLabel: "语言",
+    toggleLabel: "显示时间戳",
+    toggleSub: "在帖子旁显示精确时间",
+    buyMeCoffee: "☕ 用一杯咖啡支持我",
   },
 };
 

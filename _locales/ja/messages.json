@@ -1,0 +1,4 @@
+{
+  "appName": { "message": "InstaTimestamp" },
+  "appDesc": { "message": "Instagramの投稿が公開された正確な日時を表示します。「2h」などの曖昧な表示を正確なタイムスタンプに変換。120以上のタイムゾーンに対応。" }
+}

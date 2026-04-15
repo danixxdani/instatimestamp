@@ -1,9 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "InstaTimestamp",
-  "version": "1.0.0",
-  "description": "See the exact time Instagram posts were published. Replaces vague times like '2h' with precise timestamps. Supports 120+ timezones.",
-  "permissions": ["storage"],
+  "name": "__MSG_appName__",
+  "version": "1.1.0",
+  "description": "__MSG_appDesc__",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -14,8 +17,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.instagram.com/*"],
-      "js": ["content.js"],
+      "matches": [
+        "https://www.instagram.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
@@ -23,5 +30,6 @@
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
-  }
+  },
+  "default_locale": "en"
 }

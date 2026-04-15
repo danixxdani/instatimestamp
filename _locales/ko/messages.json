@@ -1,0 +1,4 @@
+{
+  "appName": { "message": "InstaTimestamp" },
+  "appDesc": { "message": "인스타그램 포스팅의 정확한 시간을 확인하세요. '2h' 같은 상대 시간을 정확한 날짜와 시각으로 변환합니다. 120개 이상의 시간대 지원." }
+}

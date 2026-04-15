@@ -1,0 +1,4 @@
+{
+  "appName": { "message": "InstaTimestamp" },
+  "appDesc": { "message": "See the exact time Instagram posts were published. Replaces vague times like '2h' with precise timestamps. Supports 120+ timezones." }
+}

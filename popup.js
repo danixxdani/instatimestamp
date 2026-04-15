@@ -1,18 +1,22 @@
 (function () {
-  const searchEl      = document.getElementById('search');
-  const selectEl      = document.getElementById('tz-select');
   const langSelectEl  = document.getElementById('lang-select');
+  const toggleTrack   = document.getElementById('toggle-track');
+  const tzSection     = document.getElementById('tz-section');
+  const comboRow      = document.getElementById('combo-row');
+  const comboInput    = document.getElementById('combo-input');
+  const comboClear    = document.getElementById('combo-clear');
+  const comboArrow    = document.getElementById('combo-arrow');
+  const comboList     = document.getElementById('combo-list');
   const currentTimeEl = document.getElementById('current-time');
   const currentTzEl   = document.getElementById('current-tz-name');
-  const resultCountEl = document.getElementById('result-count');
-  const btnSave       = document.getElementById('btn-save');
   const btnReset      = document.getElementById('btn-reset');
+  const bmcBtn        = document.getElementById('bmc-btn');
 
-  let selectedTz   = null;
-  let currentLang  = 'en';
-  let clockTimer   = null;
-
-  // ── i18n ──────────────────────────────────────────
+  let selectedTz  = null;
+  let currentLang = 'en';
+  let enabled     = true;
+  let clockTimer  = null;
+  let isOpen      = false;
 
   function t(key, ...args) {
     const dict = I18N[currentLang] || I18N.en;
@@ -21,24 +25,24 @@
   }
 
   function applyStrings() {
-    document.getElementById('hdr-sub').textContent    = t('subtitle');
-    document.getElementById('lbl-tz').textContent     = t('sectionLabel');
-    searchEl.placeholder                              = t('searchPlaceholder');
+    document.getElementById('hdr-sub').textContent     = t('subtitle');
+    document.getElementById('lbl-tz').textContent      = t('sectionLabel');
     document.getElementById('lbl-current').textContent = t('currentLabel');
-    document.getElementById('lbl-footer').textContent = t('footer');
-    btnSave.textContent                               = t('save');
-    btnReset.textContent                              = t('reset');
-    rebuildOptions(searchEl.value);
+    document.getElementById('lbl-footer').textContent  = t('footer');
+    document.getElementById('lbl-toggle').textContent  = t('toggleLabel');
+    document.getElementById('lbl-toggle-sub').textContent = t('toggleSub');
+    btnReset.textContent = t('reset');
+    bmcBtn.textContent = t('buyMeCoffee');
+    if (!comboInput.value) comboInput.placeholder = t('searchPlaceholder');
   }
 
-  // ── Language selector ─────────────────────────────
+  // ── Language ──────────────────────────────────────
 
   function buildLangOptions() {
     langSelectEl.innerHTML = '';
     LANG_OPTIONS.forEach(({ code, label }) => {
       const opt = document.createElement('option');
-      opt.value = code;
-      opt.textContent = label;
+      opt.value = code; opt.textContent = label;
       if (code === currentLang) opt.selected = true;
       langSelectEl.appendChild(opt);
     });
@@ -48,19 +52,34 @@
     currentLang = langSelectEl.value;
     chrome.storage.sync.set({ lang: currentLang });
     applyStrings();
+    sendToInstagram({ type: 'LANG_CHANGED', lang: currentLang });
   });
 
-  // ── Timezone dropdown ─────────────────────────────
+  // ── Toggle ────────────────────────────────────────
+
+  function setEnabled(val) {
+    enabled = val;
+    toggleTrack.classList.toggle('on', enabled);
+    tzSection.classList.toggle('disabled-section', !enabled);
+  }
+
+  toggleTrack.addEventListener('click', () => {
+    setEnabled(!enabled);
+    chrome.storage.sync.set({ enabled });
+    sendToInstagram({ type: 'ENABLED_CHANGED', enabled });
+  });
+
+  // ── Combobox ──────────────────────────────────────
 
   function getLocalTz() {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+    } catch { return 'UTC'; }
   }
 
   function getTzAbbr(tz) {
     try {
-      const parts = new Intl.DateTimeFormat('en-US', {
-        timeZone: tz, timeZoneName: 'short',
-      }).formatToParts(new Date());
+      const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' }).formatToParts(new Date());
       return parts.find(p => p.type === 'timeZoneName')?.value || '';
     } catch { return ''; }
   }
@@ -69,107 +88,151 @@
     return TIMEZONES.find(t => t.tz === tz);
   }
 
-  function rebuildOptions(query) {
-    const q = query.trim().toLowerCase();
+  function openCombo() {
+    isOpen = true;
+    comboRow.classList.add('open');
+    comboArrow.classList.add('open');
+    comboList.classList.add('open');
+    comboInput.focus();
+    setTimeout(() => comboInput.select(), 0);
+    comboClear.classList.toggle('visible', comboInput.value.length > 0);
+    renderList(comboInput.value);
+  }
+
+  function closeCombo() {
+    isOpen = false;
+    comboRow.classList.remove('open');
+    comboArrow.classList.remove('open');
+    comboList.classList.remove('open');
+    const meta = getTzMeta(selectedTz);
+    comboInput.value = meta ? meta.label : selectedTz || '';
+    comboClear.classList.toggle('visible', comboInput.value.length > 0);
+    comboInput.placeholder = t('searchPlaceholder');
+  }
+
+  function renderList(query) {
+    const q = (query || '').trim().toLowerCase();
     const filtered = q
       ? TIMEZONES.filter(item =>
           item.label.toLowerCase().includes(q) ||
           item.tz.toLowerCase().includes(q) ||
-          item.offset.toLowerCase().includes(q)
-        )
+          item.offset.toLowerCase().includes(q))
       : TIMEZONES;
 
-    selectEl.innerHTML = '';
+    comboList.innerHTML = '';
 
     if (filtered.length === 0) {
-      const opt = document.createElement('option');
-      opt.disabled = true;
-      opt.textContent = t('noResults');
-      selectEl.appendChild(opt);
-      resultCountEl.textContent = '';
+      const el = document.createElement('div');
+      el.className = 'combo-no-results';
+      el.textContent = t('noResults');
+      comboList.appendChild(el);
       return;
     }
 
     filtered.forEach(item => {
-      const opt = document.createElement('option');
-      opt.value = item.tz;
-      opt.textContent = `${item.offset}  ${item.label}`;
-      if (item.tz === selectedTz) opt.selected = true;
-      selectEl.appendChild(opt);
+      const el = document.createElement('div');
+      el.className = 'combo-item' + (item.tz === selectedTz ? ' selected' : '');
+      el.innerHTML = `<span class="combo-item-offset">${item.offset}</span><span class="combo-item-label">${item.label}</span>${item.tz === selectedTz ? '<span class="combo-item-check">✓</span>' : ''}`;
+      el.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        selectedTz = item.tz;
+        closeCombo();
+        updateClock();
+        chrome.storage.sync.set({ timezone: selectedTz });
+        sendToInstagram({ type: 'TIMEZONE_CHANGED', timezone: selectedTz });
+      });
+      comboList.appendChild(el);
     });
 
-    if (!filtered.find(f => f.tz === selectedTz) && filtered.length > 0) {
-      selectedTz = filtered[0].tz;
-      selectEl.selectedIndex = 0;
-    }
-
-    resultCountEl.textContent = q ? t('resultCount', filtered.length) : '';
-    updateClock();
+    // scroll selected into view
+    const sel = comboList.querySelector('.selected');
+    if (sel) sel.scrollIntoView({ block: 'nearest' });
   }
 
-  // ── Clock preview ─────────────────────────────────
+  comboRow.addEventListener('click', () => {
+    if (!isOpen) openCombo(); else closeCombo();
+  });
+
+  comboInput.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!isOpen) openCombo();
+    else setTimeout(() => comboInput.select(), 0);
+  });
+
+  comboInput.addEventListener('input', () => {
+    comboClear.classList.toggle('visible', comboInput.value.length > 0);
+    renderList(comboInput.value);
+    if (!isOpen) openCombo();
+  });
+
+  comboClear.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    comboInput.value = '';
+    comboClear.classList.remove('visible');
+    renderList('');
+    comboInput.focus();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (isOpen && !document.querySelector('.combo-wrap').contains(e.target)) closeCombo();
+  });
+
+  // ── Clock ─────────────────────────────────────────
 
   function updateClock() {
     if (!selectedTz) return;
     try {
       currentTimeEl.textContent = new Date().toLocaleTimeString('en-US', {
-        timeZone: selectedTz,
-        hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true,
+        timeZone: selectedTz, hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true,
       });
       const meta = getTzMeta(selectedTz);
       const abbr = getTzAbbr(selectedTz);
-      currentTzEl.textContent = meta
-        ? `${meta.label}  (${abbr || meta.offset})`
-        : selectedTz;
+      currentTzEl.textContent = meta ? `${meta.label}  (${abbr || meta.offset})` : selectedTz;
     } catch { currentTimeEl.textContent = '--'; }
   }
 
-  function startClock() {
-    clearInterval(clockTimer);
-    updateClock();
-    clockTimer = setInterval(updateClock, 1000);
-  }
+  // ── Save / Reset ──────────────────────────────────
 
-  // ── Events ────────────────────────────────────────
 
-  searchEl.addEventListener('input', () => rebuildOptions(searchEl.value));
-
-  selectEl.addEventListener('change', () => {
-    selectedTz = selectEl.value;
-    updateClock();
-  });
-
-  btnSave.addEventListener('click', () => {
-    if (!selectedTz) return;
-    chrome.storage.sync.set({ timezone: selectedTz }, () => {
-      btnSave.textContent = t('saved');
-      btnSave.classList.add('saved');
-      setTimeout(() => {
-        btnSave.textContent = t('save');
-        btnSave.classList.remove('saved');
-      }, 1500);
-    });
-  });
 
   btnReset.addEventListener('click', () => {
+    const localTz = getLocalTz();
     chrome.storage.sync.set({ timezone: '' }, () => {
-      selectedTz = getLocalTz();
-      rebuildOptions(searchEl.value);
-      const orig = btnReset.textContent;
-      btnReset.textContent = '✓';
-      setTimeout(() => { btnReset.textContent = t('reset'); }, 1200);
+      selectedTz = localTz;
+      closeCombo();
+      updateClock();
+      sendToInstagram({ type: 'TIMEZONE_CHANGED', timezone: localTz });
     });
   });
 
-  // ── Init ─────────────────────────────────────────
+  function sendToInstagram(msg) {
+    chrome.tabs.query({ url: 'https://www.instagram.com/*' }, (tabs) => {
+      tabs.forEach(tab => {
+        chrome.tabs.sendMessage(tab.id, msg).catch(() => {});
+      });
+    });
+  }
 
-  chrome.storage.sync.get(['timezone', 'lang'], (result) => {
+  bmcBtn.addEventListener('click', () => {
+    chrome.tabs.create({ url: 'https://buymeacoffee.com/danibutfreer' });
+  });
+
+  // ── Init ──────────────────────────────────────────
+
+  chrome.storage.sync.get(['timezone', 'lang', 'enabled'], (result) => {
     currentLang = result.lang || detectBrowserLang();
     selectedTz  = result.timezone || getLocalTz();
+    enabled     = result.enabled !== false;
 
     buildLangOptions();
     applyStrings();
-    startClock();
+    setEnabled(enabled);
+
+    const meta = getTzMeta(selectedTz);
+    comboInput.value = meta ? meta.label : selectedTz;
+
+    updateClock();
+    clockTimer = setInterval(updateClock, 1000);
   });
 
 })();
