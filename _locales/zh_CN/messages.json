@@ -1,4 +1,4 @@
 {
-  "appName": { "message": "InstaTimestamp" },
-  "appDesc": { "message": "查看 Instagram 帖子的精确发布时间。将「2h」等模糊时间替换为精确的日期和时刻。支持 120 余个时区。" }
+  "appName": { "message": "InstaTimestamp：查看 Instagram 帖子的精确发布时间" },
+  "appDesc": { "message": "Instagram 只显示“2小时”？查看每条帖子精确到秒的发布日期和时间，支持 120 多个时区，完全免费，不收集任何数据。" }
 }

@@ -1,0 +1,47 @@
+Instagram only shows “2h”, “3d” or “1w” — never the exact time a post was published. InstaTimestamp fixes that automatically.
+
+Open Instagram and the full date and time, down to the second, appears right next to every timestamp, in the timezone you choose. No hovering, no clicking, no digging through page code.
+
+2h  →  2h  Apr 8, 2026, 9:05:32 PM PST
+
+━━━━━━━━━━
+WHO USES IT
+━━━━━━━━━━
+• Social media managers checking when competitors post
+• Journalists and fact-checkers verifying when a post went live
+• Researchers and OSINT analysts building accurate timelines
+• Creators reviewing when their own posts were published
+• Anyone checking giveaway or contest deadlines
+
+━━━━━━━━━━
+FEATURES
+━━━━━━━━━━
+• Exact date and time with seconds, shown next to Instagram's own time
+• Works on the feed, profiles, posts, Reels and comments
+• Timezone shown on every timestamp (PST, EST, KST, JST…)
+• 120+ timezones, searchable by city or country
+• Live clock preview — changes apply instantly, no save button
+• One-click reset to your local timezone
+• On/off toggle whenever you want Instagram's original look back
+• Keeps working as you scroll — new posts are converted instantly
+• Available in English, 한국어, 日本語, 中文, Español, Português
+
+━━━━━━━━━━
+PRIVACY FIRST
+━━━━━━━━━━
+InstaTimestamp collects no data. No tracking, no analytics, no accounts. Everything runs locally in your browser, and only on instagram.com.
+
+━━━━━━━━━━
+FAQ
+━━━━━━━━━━
+Q. How do I see the exact time of an Instagram post?
+Install InstaTimestamp and open instagram.com. The exact time appears automatically next to every post's time.
+
+Q. Does it work on mobile?
+It works on Instagram's website in desktop Chrome.
+
+Q. Why does it need access to instagram.com?
+To read the timestamp Instagram already includes in the page and display it. Nothing is sent anywhere.
+
+Q. Is it free?
+Yes, completely free.

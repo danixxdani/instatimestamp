@@ -1,0 +1,47 @@
+O Instagram mostra apenas “2 h”, “3 d” ou “1 sem”, nunca o horário exato em que um post foi publicado. O InstaTimestamp resolve isso automaticamente.
+
+Abra o Instagram e a data e hora completas, com segundos, aparecem ao lado de cada horário, no fuso horário que você escolher. Sem passar o mouse, sem clicar e sem fuçar no código da página.
+
+2 h  →  2 h  8 de abr. de 2026, 21:05:32 BRT
+
+━━━━━━━━━━
+QUEM USA
+━━━━━━━━━━
+• Social media que analisam quando a concorrência posta
+• Jornalistas e checadores que confirmam quando um post foi ao ar
+• Pesquisadores e analistas OSINT que montam linhas do tempo precisas
+• Criadores que revisam o horário dos próprios posts
+• Quem precisa conferir o prazo de um sorteio ou concurso
+
+━━━━━━━━━━
+RECURSOS
+━━━━━━━━━━
+• Data e hora exatas com segundos, ao lado do horário do Instagram
+• Funciona no feed, perfis, posts, Reels e comentários
+• Fuso horário exibido em cada horário (BRT, PST, EST, CET…)
+• Mais de 120 fusos horários, com busca por cidade ou país
+• Relógio ao vivo — as mudanças valem na hora, sem botão de salvar
+• Volte ao fuso horário local com um clique
+• Botão liga/desliga para voltar ao visual original quando quiser
+• Continua funcionando enquanto você rola: posts novos são convertidos na hora
+• Disponível em Português, English, Español, 한국어, 日本語 e 中文
+
+━━━━━━━━━━
+PRIVACIDADE EM PRIMEIRO LUGAR
+━━━━━━━━━━
+O InstaTimestamp não coleta nenhum dado. Sem rastreamento, sem análises, sem contas. Tudo roda localmente no seu navegador e somente no instagram.com.
+
+━━━━━━━━━━
+PERGUNTAS FREQUENTES
+━━━━━━━━━━
+P. Como vejo o horário exato de um post do Instagram?
+Instale o InstaTimestamp e abra o instagram.com. O horário exato aparece automaticamente ao lado do horário de cada post.
+
+P. Funciona no celular?
+Funciona no site do Instagram no Chrome para computador.
+
+P. Por que precisa de acesso ao instagram.com?
+Para ler o horário que o Instagram já inclui na página e exibi-lo. Nada é enviado para lugar nenhum.
+
+P. É grátis?
+Sim, totalmente grátis.

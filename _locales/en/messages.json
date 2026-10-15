@@ -1,4 +1,4 @@
 {
-  "appName": { "message": "InstaTimestamp" },
-  "appDesc": { "message": "See the exact time Instagram posts were published. Replaces vague times like '2h' with precise timestamps. Supports 120+ timezones." }
+  "appName": { "message": "InstaTimestamp: See Exact Post Time & Date on Instagram" },
+  "appDesc": { "message": "Instagram says “2h”. See the exact date & time of every post instead, down to the second, in any timezone. Free, no data collected." }
 }

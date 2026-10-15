@@ -1,4 +1,4 @@
 {
-  "appName": { "message": "InstaTimestamp" },
-  "appDesc": { "message": "Ve la hora exacta en que se publicaron las publicaciones de Instagram. Reemplaza tiempos vagos como '2h' con marcas de tiempo precisas. Compatible con más de 120 zonas horarias." }
+  "appName": { "message": "InstaTimestamp: Ver la hora exacta de publicación en Instagram" },
+  "appDesc": { "message": "Instagram dice “2 h”. Ve la fecha y hora exactas de cada publicación, al segundo y en tu zona horaria. Gratis y sin recopilar datos." }
 }

@@ -2,6 +2,17 @@
 
 All notable changes to InstaTimestamp will be documented in this file.
 
+## [1.1.1] - 2026-10-15
+
+### Changed
+- Store name and short description rewritten in all 6 languages to include search keywords ("exact time", "post date") and lead with the user benefit
+- Short description now mentions that no data is collected
+
+### Added
+- `store-listing/` with the Chrome Web Store detailed description for each language, ready to paste into the developer dashboard
+
+---
+
 ## [1.1.0] - 2026-04-15
 
 ### Added
