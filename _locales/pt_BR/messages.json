@@ -1,4 +1,4 @@
 {
-  "appName": { "message": "InstaTimestamp" },
-  "appDesc": { "message": "Veja o horário exato das publicações do Instagram. Substitui tempos vagos como '2h' por timestamps precisos com data e hora. Suporta mais de 120 fusos horários." }
+  "appName": { "message": "InstaTimestamp: Veja o horário exato dos posts do Instagram" },
+  "appDesc": { "message": "O Instagram mostra “2 h”. Veja a data e hora exatas de cada post, com segundos, no seu fuso horário. Grátis e sem coleta de dados." }
 }

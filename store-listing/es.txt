@@ -1,0 +1,47 @@
+Instagram solo muestra “2 h”, “3 d” o “1 sem”, nunca la hora exacta en que se publicó algo. InstaTimestamp lo soluciona automáticamente.
+
+Abre Instagram y la fecha y hora completas, al segundo, aparecen junto a cada marca de tiempo, en la zona horaria que elijas. Sin pasar el cursor, sin hacer clic y sin revisar el código de la página.
+
+2 h  →  2 h  8 abr 2026, 9:05:32 p. m. CST
+
+━━━━━━━━━━
+¿QUIÉN LO USA?
+━━━━━━━━━━
+• Community managers que analizan cuándo publica la competencia
+• Periodistas y verificadores que confirman cuándo se publicó algo
+• Investigadores y analistas OSINT que reconstruyen cronologías
+• Creadores que revisan la hora de sus propias publicaciones
+• Cualquiera que quiera comprobar el plazo de un sorteo o concurso
+
+━━━━━━━━━━
+FUNCIONES
+━━━━━━━━━━
+• Fecha y hora exactas con segundos, junto a la hora de Instagram
+• Funciona en el feed, perfiles, publicaciones, Reels y comentarios
+• Zona horaria visible en cada marca de tiempo (CST, PST, EST, CET…)
+• Más de 120 zonas horarias, con búsqueda por ciudad o país
+• Reloj en vivo — los cambios se aplican al instante, sin botón de guardar
+• Restablece tu zona horaria local con un clic
+• Interruptor para activar o desactivar cuando quieras
+• Sigue funcionando al hacer scroll: las nuevas publicaciones se convierten al instante
+• Disponible en Español, English, Português, 한국어, 日本語 y 中文
+
+━━━━━━━━━━
+PRIVACIDAD ANTE TODO
+━━━━━━━━━━
+InstaTimestamp no recopila ningún dato. Sin rastreo, sin analíticas, sin cuentas. Todo funciona localmente en tu navegador y solo en instagram.com.
+
+━━━━━━━━━━
+PREGUNTAS FRECUENTES
+━━━━━━━━━━
+P. ¿Cómo veo la hora exacta de una publicación de Instagram?
+Instala InstaTimestamp y abre instagram.com. La hora exacta aparecerá automáticamente junto a la hora de cada publicación.
+
+P. ¿Funciona en el móvil?
+Funciona en el sitio web de Instagram en Chrome para escritorio.
+
+P. ¿Por qué necesita acceso a instagram.com?
+Para leer la marca de tiempo que Instagram ya incluye en la página y mostrarla. No se envía nada a ningún lugar.
+
+P. ¿Es gratis?
+Sí, totalmente gratis.
