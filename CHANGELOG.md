@@ -7,6 +7,8 @@ All notable changes to InstaTimestamp will be documented in this file.
 ### Changed
 - Store name and short description rewritten in all 6 languages to include search keywords ("exact time", "post date") and lead with the user benefit
 - Short description now mentions that no data is collected
+- New app icon (gradient clock), replacing the Instagram-style gradient icon; 16px version has thickened strokes for toolbar legibility
+- Popup header now shows the new logo instead of the ⏰ emoji on an Instagram-style gradient
 
 ### Added
 - `store-listing/` with the Chrome Web Store detailed description for each language, ready to paste into the developer dashboard
